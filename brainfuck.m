@@ -9,6 +9,9 @@ function brainfuck(program)
     symbolMap('[') = 'LoopStart';
     symbolMap(']') = 'LoopEnd';
     symbolMap('.') = 'Print';
+    
+    % Create an anonymous function to compare the index to a hash value
+    compare = @(i, val) strcmp(symbolMap(program(i)), val);
 
     %% Initialize variables
     % Tape to move a pointer across
@@ -22,22 +25,22 @@ function brainfuck(program)
     %% Iterate over program
     while i <= length(program)
         % Shift the pointer one index to the left
-        if (strcmp(symbolMap(program(i)), 'ShiftLeft') == 1)
+        if (compare(i, 'ShiftLeft') == 1)
             ptr = ptr - 1;
         % Shift the pointer 1 index to the right
-        elseif (strcmp(symbolMap(program(i)), 'ShiftRight') == 1)
+        elseif (compare(i, 'ShiftRight') == 1)
             ptr = ptr + 1;
         % Increment the tape value ptr is pointing to
-        elseif (strcmp(symbolMap(program(i)), 'Increment') == 1)
+        elseif (compare(i, 'Increment') == 1)
             if (ptr > length(tape))
                 tape(ptr) = 0;
             end
             tape(ptr) = tape(ptr) + 1;
         % Decrement the tape value ptr is pointing to
-        elseif (strcmp(symbolMap(program(i)), 'Decrement') == 1)
+        elseif (compare(i, 'Decrement') == 1)
             tape(ptr) = tape(ptr) - 1;
         % Begin a loop
-        elseif (strcmp(symbolMap(program(i)), 'LoopStart') == 1)
+        elseif (compare(i, 'LoopStart') == 1)
             if (tape(ptr) == 0)
                 loop = 1;
                 while (loop > 0)
@@ -51,7 +54,7 @@ function brainfuck(program)
                 end
             end
         % End a loop
-        elseif (strcmp(symbolMap(program(i)), 'LoopEnd') == 1)
+        elseif (compare(i, 'LoopEnd') == 1)
             loop = 1;
             while (loop > 0)
                 i = i - 1;
@@ -64,7 +67,7 @@ function brainfuck(program)
             end
             i = i - 1;
         % Print char value of where ptr is in the tape
-        elseif (strcmp(symbolMap(program(i)), 'Print') == 1)
+        elseif (compare(i, 'Print') == 1)
             fprintf('%s', char((tape(ptr))));
         end
         i = i + 1;
