@@ -1,3 +1,4 @@
+%% brainfuck(program) - Parse and run a brainfuck program
 function brainfuck(program)
 
     %% Establish symbol map
