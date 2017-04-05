@@ -1,6 +1,6 @@
-# brainfuck-matlab
-Brainfuck interpreter in MatLab
+# bf-matlab
+BF interpreter in MatLab
 
 ## How to Run
 - Load script into current MatLab directory
-- Run function with `brainfuck(some_brainfuck_program_string)`
+- Run function with `bf(some_bf_program_string)`
