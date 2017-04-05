@@ -1,5 +1,5 @@
-%% brainfuck(program) - Parse and run a brainfuck program
-function brainfuck(program)
+%% bf(program) - Parse and run a bf program
+function mf(program)
 
     %% Establish symbol map
     symbolMap = containers.Map;
